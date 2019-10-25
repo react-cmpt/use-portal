@@ -1,3 +1,3 @@
-import Demo from "./demo";
+import { usePortal } from "./use-portal";
 
-export default Demo;
+export { usePortal };
