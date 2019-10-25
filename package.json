@@ -1,0 +1,32 @@
+{
+  "name": "@react-cmpt/use-portal",
+  "version": "0.1.0",
+  "description": "React partals with hooks",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "example": "parcel ./example/index.html",
+    "build": "tsc -d --project tsconfig.json --outDir ./lib/",
+    "test": "jest -c jest.json"
+  },
+  "author": "wangcch <wangcch.cc@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "emotion": "^10.0.17",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.19",
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "^16.9.2",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest": "^24.9.0",
+    "parcel-bundler": "^1.12.4",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.4"
+  }
+}
