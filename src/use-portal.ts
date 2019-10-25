@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { containerAttrName, containerAttrValue } from "./constants";
+import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
 
 /**
  * usePortal
@@ -8,8 +8,8 @@ import { containerAttrName, containerAttrValue } from "./constants";
  * @param {string} attrValue @default ""
  */
 export function usePortal(
-  attrName: string = containerAttrName,
-  attrValue: string = containerAttrValue
+  attrName: string = CONTAINER_ATTR_NAME,
+  attrValue: string = CONTAINER_ATTR_VALUE
 ): HTMLDivElement {
   const refContainer = useRef<HTMLDivElement | null>();
   const refElement = useRef<HTMLDivElement>(document.createElement("div"));

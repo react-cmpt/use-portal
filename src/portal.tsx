@@ -1,7 +1,7 @@
 import { FC, ReactNode, ReactPortal } from "react";
 import ReactDom from "react-dom";
 import { canUseDom } from "./utils";
-import { containerAttrName, containerAttrValue } from "./constants";
+import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
 
 import { usePortal } from "./use-portal";
 
@@ -16,8 +16,8 @@ export interface PortalProps {
 }
 
 const defaultProps: Partial<PortalProps> = {
-  attrName: containerAttrName,
-  attrValue: containerAttrValue,
+  attrName: CONTAINER_ATTR_NAME,
+  attrValue: CONTAINER_ATTR_VALUE,
 };
 
 const Portal: FC<PortalProps> = (props): ReactPortal | null => {
