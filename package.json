@@ -9,6 +9,14 @@
     "build": "tsc -d --project tsconfig.json --outDir ./lib/",
     "test": "jest -c jest.json"
   },
+  "keywords": [
+    "react",
+    "react-portal",
+    "portal",
+    "react-component",
+    "modal",
+    "dialog"
+  ],
   "author": "wangcch <wangcch.cc@gmail.com>",
   "license": "MIT",
   "dependencies": {
