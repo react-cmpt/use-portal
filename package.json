@@ -9,6 +9,10 @@
     "build": "tsc -d --project tsconfig.json --outDir ./lib/",
     "test": "jest -c jest.json"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-cmpt/use-portal.git"
+  },
   "keywords": [
     "react",
     "react-portal",
