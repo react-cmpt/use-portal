@@ -6,8 +6,9 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "example": "parcel ./example/index.html",
-    "build": "tsc -d --project tsconfig.json --outDir ./lib/",
-    "test": "jest -c jest.json"
+    "build": "rm -rf ./lib/ && tsc -d --project tsconfig.json --outDir ./lib/",
+    "test": "jest -c jest.json",
+    "prepare": "yarn build"
   },
   "repository": {
     "type": "git",
