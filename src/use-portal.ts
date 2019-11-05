@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, MutableRefObject } from "react";
 import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
+
+export type ContainerElRef = MutableRefObject<HTMLElement | null | undefined>;
 
 /**
  * usePortal
@@ -10,9 +12,9 @@ import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
 export function usePortal(
   attrName: string = CONTAINER_ATTR_NAME,
   attrValue: string = CONTAINER_ATTR_VALUE
-): HTMLDivElement {
+): { element: HTMLElement; ref: ContainerElRef } {
   const refContainer = useRef<HTMLDivElement | null>();
-  const refElement = useRef<HTMLDivElement>(document.createElement("div"));
+  const refElement = useRef<HTMLElement>(document.createElement("div"));
 
   useEffect(() => {
     refContainer.current = document.querySelector<HTMLDivElement>(
@@ -34,5 +36,5 @@ export function usePortal(
     };
   }, []);
 
-  return refElement.current;
+  return { element: refElement.current, ref: refContainer };
 }

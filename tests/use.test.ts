@@ -12,7 +12,7 @@ describe("usePortal", () => {
   it("default attribute", () => {
     const { result: originalResult } = renderHook(() => usePortal());
 
-    expect(originalResult.current).toStrictEqual(divElement);
+    expect(originalResult.current.element).toStrictEqual(divElement);
 
     const el = document.body.querySelector(
       `div[${CONTAINER_ATTR_NAME}="${CONTAINER_ATTR_VALUE}"]`
@@ -26,7 +26,7 @@ describe("usePortal", () => {
       usePortal(attrName, attrValue)
     );
 
-    expect(customResult.current).toStrictEqual(divElement);
+    expect(customResult.current.element).toStrictEqual(divElement);
 
     expect(
       document.querySelector<HTMLDivElement>(`div[${attrName}="${attrValue}"]`)

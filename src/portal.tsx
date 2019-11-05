@@ -24,7 +24,7 @@ const Portal: FC<PortalProps> = (props): ReactPortal | null => {
   if (!canUseDom) return null;
 
   const { attrName, attrValue, children, portalKey } = props;
-  const element = usePortal(attrName, attrValue);
+  const { element } = usePortal(attrName, attrValue);
 
   return ReactDom.createPortal(children, element, portalKey);
 };

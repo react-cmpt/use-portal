@@ -25,8 +25,8 @@ yarn add @react-cmpt/use-portal
 import { usePortal } from "@react-cmpt/use-portal";
 
 const App = () => {
-  // export content element
-  const element = usePortal();
+  // export content element and container ref
+  const { element, ref } = usePortal();
 };
 ```
 
@@ -65,4 +65,8 @@ yarn test
 
 ## workflow
 
-https://github.com/wangcch/react-ts-parcel-workflow
+https://github.com/react-cmpt/rc-demo
+
+## License
+
+[MIT](./LICENSE)
