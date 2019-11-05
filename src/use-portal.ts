@@ -1,5 +1,6 @@
 import { useEffect, useRef, MutableRefObject } from "react";
 import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
+import { containEl } from "./utils";
 
 export type ContainerElRef = MutableRefObject<HTMLElement | null | undefined>;
 
@@ -30,7 +31,10 @@ export function usePortal(
     refContainer.current.append(refElement.current);
 
     return () => {
-      if (refContainer.current) {
+      if (
+        refContainer.current &&
+        containEl(refContainer.current, refElement.current)
+      ) {
         refContainer.current.removeChild(refElement.current);
       }
     };
