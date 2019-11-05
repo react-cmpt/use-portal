@@ -16,7 +16,7 @@ yarn add @react-cmpt/use-portal
 
 ### usePortal
 
-| props       | type   | default                | explain                    |
+| options     | type   | default                | explain                    |
 | ----------- | ------ | ---------------------- | -------------------------- |
 | `attrName`  | string | "react-cmpt-container" | setAttribute qualifiedName |
 | `attrValue` | string | ""                     | setAttribute value         |
@@ -42,6 +42,29 @@ const App = () => {
 import { Portal } from "@react-cmpt/use-portal";
 
 const App = () => {
+  return (
+    <Portal>
+      <span>{"hello"}</span>
+    </Portal>
+  );
+};
+```
+
+### useEventPortal
+
+| options           | type    | default                | explain                    |
+| ----------------- | ------- | ---------------------- | -------------------------- |
+| `defaultVisiable` | boolean | false                  | initial visiable value     |
+| `attrName`        | string  | "react-cmpt-container" | setAttribute qualifiedName |
+| `attrValue`       | string  | ""                     | setAttribute value         |
+| `portalKey`       | string  | undefined              | createPortal key           |
+
+```tsx
+import { useEventPortal } from "@react-cmpt/use-portal";
+
+const App = () => {
+  const [Portal, visiable, onShow, onClose, element, ref] = useEventPortal({});
+
   return (
     <Portal>
       <span>{"hello"}</span>
