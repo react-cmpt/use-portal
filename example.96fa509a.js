@@ -95,4 +95,4 @@ var r,e;module.exports=require("./factoryWithThrowingShims")();
 },{"react":"n8MK","emotion":"TAuN","./portal":"iKuR","./event-portal":"KIv3"}],"zo2T":[function(require,module,exports) {
 "use strict";var e=u(require("react")),r=u(require("react-dom")),t=u(require("./App"));function u(e){return e&&e.__esModule?e:{default:e}}r.default.render(e.default.createElement(t.default,null),document.getElementById("root"));
 },{"react":"n8MK","react-dom":"NKHc","./App":"NHn6"}]},{},["zo2T"], null)
-//# sourceMappingURL=/example.96fa509a.js.map
+//# sourceMappingURL=example.96fa509a.js.map
