@@ -47,13 +47,13 @@ export const useEventPortal = (
   const { element, ref } = usePortal(attrName, attrValue);
   const [visiable, setVisiable] = useState<boolean>(defaultVisiable);
 
-  const onShow = () => {
+  const onShow = useCallback(() => {
     setVisiable(true);
-  };
+  }, [setVisiable]);
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     setVisiable(false);
-  };
+  }, [setVisiable]);
 
   useEffect(() => {
     if (ref.current) {
@@ -73,7 +73,7 @@ export const useEventPortal = (
 
       return null;
     },
-    [element, visiable]
+    [element, visiable, portalKey]
   );
 
   return [Portal, visiable, onShow, onClose, element, ref];
