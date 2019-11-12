@@ -47,7 +47,7 @@ export default function Demo(props: IProps) {
             className={styleContext}
             data-state={state}
           >
-            <div style={{ zIndex: 100 }}>
+            <div className={styleContent} style={{ zIndex: 100 }}>
               {`${state}  ${props.show}`}
               <p>{"content"}</p>
               <button onClick={onClose}>close</button>
@@ -102,4 +102,10 @@ const styleContext = css`
   &[data-state="exited"]::before {
     animation: ${fadeOutAnimation} 300ms both;
   }
+`;
+
+const styleContent = css`
+  background: #ffffff;
+  padding: 16px;
+  min-width: 200px;
 `;

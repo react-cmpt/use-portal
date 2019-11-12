@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { css } from "emotion";
 
 import PortalDemo from "./portal";
 import EventPortalDemo from "./event-portal";
+
+const Source: FC<{ url: string }> = props => {
+  return (
+    <a href={props.url} target={"_blank"}>
+      {"source"}
+    </a>
+  );
+};
 
 export default function App() {
   const [show, setShow] = useState<boolean>(false);
@@ -19,6 +27,7 @@ export default function App() {
           {"show"}
         </button>
         <p>{`show: ${show}`}</p>
+        <Source url="https://github.com/react-cmpt/use-portal/blob/master/example/portal.tsx" />
         <PortalDemo
           show={show}
           onClose={() => {
@@ -29,6 +38,7 @@ export default function App() {
       <div className={styleItem}>
         <p>{"useEventPortal Demo:"}</p>
         <EventPortalDemo />
+        <Source url="https://github.com/react-cmpt/use-portal/blob/master/example/event-portal.tsx" />
       </div>
     </div>
   );
