@@ -1,8 +1,4 @@
-export const canUseDom: boolean = !!(
-  typeof window !== "undefined" &&
-  window.document &&
-  window.document.createElement
-);
+export const canUseDom: boolean = !!window?.document?.createElement;
 
 export function containEl(
   parentNode: HTMLElement,
@@ -10,7 +6,7 @@ export function containEl(
 ): boolean {
   let contain: boolean = false;
 
-  if (parentNode && parentNode.childNodes && childrenNode) {
+  if (parentNode?.childNodes && childrenNode) {
     parentNode.childNodes.forEach(i => {
       if (i === childrenNode) {
         contain = true;
