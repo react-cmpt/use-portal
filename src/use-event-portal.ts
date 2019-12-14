@@ -60,7 +60,7 @@ export const useEventPortal = (
       const contain = containEl(ref.current, element);
 
       if (visiable && !contain) {
-        ref.current.append(element);
+        ref.current.appendChild(element);
       } else if (!visiable && contain) {
         ref.current.removeChild(element);
       }

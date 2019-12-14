@@ -25,10 +25,10 @@ export function usePortal(
     if (!refContainer.current) {
       refContainer.current = document.createElement("div");
       refContainer.current.setAttribute(attrName, attrValue);
-      document.body.append(refContainer.current);
+      document.body.appendChild(refContainer.current);
     }
 
-    refContainer.current.append(refElement.current);
+    refContainer.current.appendChild(refElement.current);
 
     return () => {
       if (
