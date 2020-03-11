@@ -1,4 +1,4 @@
-import { FC, ReactNode, ReactPortal } from "react";
+import { FC, ReactNode, ReactPortal, useCallback } from "react";
 import ReactDom from "react-dom";
 import { canUseDom } from "./utils";
 import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
@@ -21,12 +21,20 @@ const defaultProps: Partial<PortalProps> = {
 };
 
 const Portal: FC<PortalProps> = (props): ReactPortal | null => {
-  if (!canUseDom) return null;
-
   const { attrName, attrValue, children, portalKey } = props;
+
   const { element } = usePortal(attrName, attrValue);
 
-  return ReactDom.createPortal(children, element, portalKey);
+  const portal = useCallback(
+    (children: ReactNode) => {
+      if (!canUseDom) return null;
+
+      return ReactDom.createPortal(children, element, portalKey);
+    },
+    [element, portalKey]
+  );
+
+  return portal(children);
 };
 
 Portal.defaultProps = defaultProps;
