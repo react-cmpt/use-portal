@@ -2,6 +2,7 @@
 
 React partals with hooks
 
+[![CI](https://github.com/react-cmpt/use-portal/workflows/CI/badge.svg?branch=master)](https://github.com/react-cmpt/use-portal/actions?query=workflow%3ACI)
 [![Build Status](https://travis-ci.org/react-cmpt/use-portal.svg?branch=master)](https://travis-ci.org/react-cmpt/use-portal)
 [![npm](https://img.shields.io/npm/v/@react-cmpt/use-portal.svg)](https://www.npmjs.com/package/@react-cmpt/use-portal)
 [![GitHub license](https://img.shields.io/github/license/react-cmpt/use-portal)](https://github.com/react-cmpt/use-portal/blob/master/LICENSE)
