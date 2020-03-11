@@ -17,6 +17,16 @@ export function usePortal(
   const refContainer = useRef<HTMLDivElement | null>();
   const refElement = useRef<HTMLElement>(document.createElement("div"));
 
+  const cleanChildEl = () => {
+    if (
+      refContainer.current &&
+      refElement.current &&
+      containEl(refContainer.current, refElement.current)
+    ) {
+      refContainer.current.removeChild(refElement.current);
+    }
+  };
+
   useEffect(() => {
     refContainer.current = document.querySelector<HTMLDivElement>(
       `div[${attrName}="${attrValue}"]`
@@ -31,14 +41,9 @@ export function usePortal(
     refContainer.current.appendChild(refElement.current);
 
     return () => {
-      if (
-        refContainer.current &&
-        containEl(refContainer.current, refElement.current)
-      ) {
-        refContainer.current.removeChild(refElement.current);
-      }
+      cleanChildEl();
     };
-  }, []);
+  }, [attrName, attrValue]);
 
   return { element: refElement.current, ref: refContainer };
 }

@@ -65,7 +65,7 @@ export const useEventPortal = (
         ref.current.removeChild(element);
       }
     }
-  }, [visiable]);
+  }, [element, ref, visiable]);
 
   const Portal = useCallback(
     ({ children }: { children: ReactNode }) => {
