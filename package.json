@@ -10,6 +10,8 @@
     "example:deploy": "yarn example:build && gh-pages -d dist",
     "build": "rm -rf ./lib/ && tsc -d --project tsconfig.json --outDir ./lib/",
     "test": "jest -c jest.json",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "prettier": "prettier --write './src/**/*.{ts,tsx}' --config ./.prettierrc",
     "prepare": "yarn build"
   },
   "repository": {
@@ -39,17 +41,38 @@
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.2",
     "@types/react-transition-group": "^4.2.3",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
     "emotion": "^10.0.17",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
     "gh-pages": "^2.1.1",
+    "husky": "^4.2.3",
     "jest": "^24.9.0",
+    "lint-staged": "^10.0.8",
     "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.11.0",
     "react-transition-group": "^4.3.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
