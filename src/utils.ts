@@ -1,10 +1,13 @@
-export const canUseDom: boolean = !!window?.document?.createElement;
+export const canUseDom = !!(
+  window?.document?.createElement &&
+  typeof window.document.createElement === "function"
+);
 
 export function containEl(
   parentNode: HTMLElement,
   childrenNode: HTMLElement
 ): boolean {
-  let contain: boolean = false;
+  let contain = false;
 
   if (parentNode?.childNodes && childrenNode) {
     parentNode.childNodes.forEach(i => {

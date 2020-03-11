@@ -1,5 +1,5 @@
 /** portal container attribute name */
-export const CONTAINER_ATTR_NAME: string = "react-cmpt-container";
+export const CONTAINER_ATTR_NAME = "react-cmpt-container";
 
 /** portal container attribute value */
-export const CONTAINER_ATTR_VALUE: string = "";
+export const CONTAINER_ATTR_VALUE = "";
