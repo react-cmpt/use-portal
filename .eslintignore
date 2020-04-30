@@ -1,11 +1,14 @@
 /node_modules
 .cache
+.parcel-cache
 
 .DS_Store
 
 /dist
 /lib
+/esm
 /tests
+/example
 
 npm-debug.log*
 yarn-debug.log*

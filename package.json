@@ -4,11 +4,15 @@
   "description": "React partals with hooks",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "module": "esm/index.js",
+  "sideEffects": false,
   "scripts": {
-    "example": "parcel ./example/index.html",
-    "example:build": "rm -rf ./dist/ && parcel build ./example/index.html --public-url ./",
-    "example:deploy": "yarn example:build && gh-pages -d dist",
-    "build": "rm -rf ./lib/ && tsc -d --project tsconfig.json --outDir ./lib/",
+    "example": "parcel serve ./example/index.html",
+    "example:build": "rm -rf ./dist/example && parcel build ./example/index.html --target example",
+    "example:deploy": "yarn example:build && gh-pages -d ./dist/example",
+    "build": "rm -rf ./lib/* ./esm/* && yarn build:cjs && yarn build:es",
+    "build:cjs": "tsc",
+    "build:es": "tsc -m ESNext --outDir ./esm",
     "test": "jest -c jest.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "prettier": "prettier --write './src/**/*.{ts,tsx}' --config ./.prettierrc",
@@ -28,6 +32,10 @@
   ],
   "author": "wangcch <wangcch.cc@gmail.com>",
   "license": "MIT",
+  "files": [
+    "esm",
+    "lib"
+  ],
   "dependencies": {},
   "peerDependencies": {
     "react": "^16.8.0",
@@ -53,15 +61,15 @@
     "eslint-plugin-react-hooks": "^2.5.0",
     "gh-pages": "^2.1.1",
     "husky": "^4.2.3",
-    "jest": "^25.2.7",
+    "jest": "^25.5.2",
     "lint-staged": "^10.0.8",
-    "parcel-bundler": "^1.12.4",
+    "parcel": "^2.0.0-alpha.3.2",
     "prettier": "^1.19.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.11.0",
     "react-transition-group": "^4.3.0",
-    "ts-jest": "^25.3.1",
+    "ts-jest": "^25.4.0",
     "typescript": "^3.7.2"
   },
   "husky": {
@@ -74,5 +82,12 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "targets": {
+    "example": {
+      "context": "browser",
+      "publicUrl": "./",
+      "isLibrary": false
+    }
   }
 }

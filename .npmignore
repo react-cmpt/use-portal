@@ -1,6 +1,7 @@
 /node_modules
 .cache
 .github
+.parcel-cache
 
 .DS_Store
 
