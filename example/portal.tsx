@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { css, keyframes } from "emotion";
 import { Transition } from "react-transition-group";
 
-import { Portal } from "../src/index";
+import Portal from "../src/portal";
 
 interface IProps {
   show: boolean;
