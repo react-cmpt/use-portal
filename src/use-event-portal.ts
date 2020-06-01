@@ -35,25 +35,25 @@ export interface EventPortalOptions {
  */
 export const useEventPortal = (
   options: EventPortalOptions
-): [
-  ({ children }: { children: ReactNode }) => ReactPortal | null,
-  boolean,
-  () => void,
-  () => void,
-  HTMLElement,
-  ContainerElRef
-] => {
+): {
+  Portal: ({ children }: { children: ReactNode }) => ReactPortal | null;
+  visiable: boolean;
+  onShow: () => void;
+  onClose: () => void;
+  element: HTMLElement;
+  containerElmentRef: ContainerElRef;
+} => {
   const { defaultVisiable = false, attrName, attrValue, portalKey } = options;
   const { element, ref } = usePortal(attrName, attrValue);
   const [visiable, setVisiable] = useState<boolean>(defaultVisiable);
 
   const onShow = useCallback(() => {
     setVisiable(true);
-  }, [setVisiable]);
+  }, []);
 
   const onClose = useCallback(() => {
     setVisiable(false);
-  }, [setVisiable]);
+  }, []);
 
   useEffect(() => {
     if (ref.current) {
@@ -76,5 +76,12 @@ export const useEventPortal = (
     [element, visiable, portalKey]
   );
 
-  return [Portal, visiable, onShow, onClose, element, ref];
+  return {
+    Portal,
+    visiable,
+    onShow,
+    onClose,
+    element,
+    containerElmentRef: ref,
+  };
 };
