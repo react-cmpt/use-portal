@@ -22,6 +22,11 @@ yarn add @react-cmpt/use-portal
 | `attrName`  | string | "react-cmpt-container" | setAttribute qualifiedName |
 | `attrValue` | string | ""                     | setAttribute value         |
 
+| return    | type        | explain                       |
+| --------- | ----------- | ----------------------------- |
+| `element` | JSX.element | the node that wraps the child |
+| `ref`     | RefObject   | mounted node                  |
+
 ```tsx
 import { usePortal } from "@react-cmpt/use-portal";
 
@@ -60,11 +65,27 @@ const App = () => {
 | `attrValue`       | string  | ""                     | setAttribute value         |
 | `portalKey`       | string  | undefined              | createPortal key           |
 
+| return               | type            | explain                       |
+| -------------------- | --------------- | ----------------------------- |
+| `Portal`             | React.ReactNode | portal holder                 |
+| `visiable`           | boolean         | element is visible or not     |
+| `onShow`             | function        | display trigger event         |
+| `onClose`            | function        | hide trigger event            |
+| `element`            | JSX.element     | the node that wraps the child |
+| `containerElmentRef` | RefObject       | mounted node                  |
+
 ```tsx
 import { useEventPortal } from "@react-cmpt/use-portal";
 
 const App = () => {
-  const [Portal, visiable, onShow, onClose, element, ref] = useEventPortal({});
+  const {
+    Portal,
+    visiable,
+    onShow,
+    onClose,
+    element,
+    containerElmentRef,
+  } = useEventPortal({});
 
   return (
     <Portal>
