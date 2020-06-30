@@ -23,15 +23,15 @@ const defaultProps: Partial<PortalProps> = {
 const Portal: FC<PortalProps> = (props): ReactPortal | null => {
   const { attrName, attrValue, children, portalKey } = props;
 
-  const { element } = usePortal(attrName, attrValue);
+  const { getChild } = usePortal(attrName, attrValue);
 
   const portal = useCallback(
     (children: ReactNode) => {
       if (!canUseDom) return null;
 
-      return ReactDom.createPortal(children, element, portalKey);
+      return ReactDom.createPortal(children, getChild(), portalKey);
     },
-    [element, portalKey]
+    [getChild, portalKey]
   );
 
   return portal(children);

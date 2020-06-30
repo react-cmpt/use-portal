@@ -7,8 +7,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import { usePortal, ContainerElRef } from "./use-portal";
-import { containEl } from "./utils";
+import { usePortal, PortalReturns } from "./use-portal";
 
 export interface EventPortalOptions {
   /** initial visiable value */
@@ -40,11 +39,14 @@ export const useEventPortal = (
   visiable: boolean;
   onShow: () => void;
   onClose: () => void;
-  element: HTMLElement;
-  containerElmentRef: ContainerElRef;
+  getChild: PortalReturns["getChild"];
+  getContainer: PortalReturns["getContainer"];
 } => {
   const { defaultVisiable = false, attrName, attrValue, portalKey } = options;
-  const { element, ref } = usePortal(attrName, attrValue);
+  const { getChild, getContainer, appendChild, removeChild } = usePortal(
+    attrName,
+    attrValue
+  );
   const [visiable, setVisiable] = useState<boolean>(defaultVisiable);
 
   const onShow = useCallback(() => {
@@ -56,24 +58,20 @@ export const useEventPortal = (
   }, []);
 
   useEffect(() => {
-    if (ref.current) {
-      const contain = containEl(ref.current, element);
-
-      if (visiable && !contain) {
-        ref.current.appendChild(element);
-      } else if (!visiable && contain) {
-        ref.current.removeChild(element);
-      }
+    if (visiable) {
+      appendChild();
+    } else {
+      removeChild();
     }
-  }, [element, ref, visiable]);
+  }, [appendChild, removeChild, visiable]);
 
   const Portal = useCallback(
     ({ children }: { children: ReactNode }) => {
-      if (visiable) return createPortal(children, element, portalKey);
+      if (visiable) return createPortal(children, getChild(), portalKey);
 
       return null;
     },
-    [element, visiable, portalKey]
+    [getChild, visiable, portalKey]
   );
 
   return {
@@ -81,7 +79,7 @@ export const useEventPortal = (
     visiable,
     onShow,
     onClose,
-    element,
-    containerElmentRef: ref,
+    getChild,
+    getContainer,
   };
 };

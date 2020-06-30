@@ -1,8 +1,13 @@
-import { useEffect, useRef, MutableRefObject } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
 import { containEl } from "./utils";
 
-export type ContainerElRef = MutableRefObject<HTMLElement | null | undefined>;
+export interface PortalReturns {
+  getChild: () => HTMLElement;
+  getContainer: () => HTMLDivElement | null;
+  appendChild: (element?: HTMLElement) => void;
+  removeChild: (element?: HTMLElement) => void;
+}
 
 /**
  * usePortal
@@ -13,9 +18,33 @@ export type ContainerElRef = MutableRefObject<HTMLElement | null | undefined>;
 export function usePortal(
   attrName: string = CONTAINER_ATTR_NAME,
   attrValue: string = CONTAINER_ATTR_VALUE
-): { element: HTMLElement; ref: ContainerElRef } {
-  const refContainer = useRef<HTMLDivElement | null>();
+): PortalReturns {
+  const refContainer = useRef<HTMLDivElement | null>(null);
   const refElement = useRef<HTMLElement>(document.createElement("div"));
+
+  const appendChild = useCallback((el?: HTMLElement) => {
+    if (refContainer.current) {
+      if (el instanceof HTMLElement && !containEl(refContainer.current, el)) {
+        refContainer.current.appendChild(el);
+      } else if (!containEl(refContainer.current, refElement.current)) {
+        refContainer.current.appendChild(refElement.current);
+      }
+    }
+  }, []);
+
+  const removeChild = useCallback((el?: HTMLElement) => {
+    if (refContainer.current) {
+      if (el instanceof HTMLElement && containEl(refContainer.current, el)) {
+        refContainer.current.removeChild(el);
+      } else if (containEl(refContainer.current, refElement.current)) {
+        refContainer.current.removeChild(refElement.current);
+      }
+    }
+  }, []);
+
+  const getChild = useCallback(() => refElement.current, []);
+
+  const getContainer = useCallback(() => refContainer.current, []);
 
   const cleanChildEl = () => {
     if (
@@ -45,5 +74,10 @@ export function usePortal(
     };
   }, [attrName, attrValue]);
 
-  return { element: refElement.current, ref: refContainer };
+  return {
+    getChild,
+    getContainer,
+    appendChild,
+    removeChild,
+  };
 }
