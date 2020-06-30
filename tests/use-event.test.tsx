@@ -23,7 +23,7 @@ describe("useEventPortal", () => {
 
     const Portal1 = result.current.Portal;
     expect(mount(<Portal1>{contentNode}</Portal1>).html()).toBeNull();
-    expect(result.current.element.innerHTML).toEqual("");
+    expect(result.current.getChild().innerHTML).toEqual("");
 
     act(() => {
       onShow();
@@ -35,7 +35,7 @@ describe("useEventPortal", () => {
     expect(mount(<Portal2>{contentNode}</Portal2>).html()).toEqual(
       renderToStaticMarkup(contentNode)
     );
-    expect(result.current.element.innerHTML).toEqual(
+    expect(result.current.getChild().innerHTML).toEqual(
       renderToStaticMarkup(contentNode)
     );
 
