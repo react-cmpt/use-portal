@@ -10,7 +10,7 @@ export function containEl(
   let contain = false;
 
   if (parentNode?.childNodes && childrenNode) {
-    parentNode.childNodes.forEach(i => {
+    parentNode.childNodes.forEach((i) => {
       if (i === childrenNode) {
         contain = true;
       }
