@@ -1,31 +1,29 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 
 import Portal from "../src/portal";
 
-const contentNode: JSX.Element = <span>{"name"}</span>;
-const attrName: string = "prtal-container-test";
-const attrValue: string = "prtal-container-value";
+const contentNode = <span>{"name"}</span>;
+const attrName = "portal-container-test";
+const attrValue = "portal-container-value";
 
 describe("portal component custom", () => {
-  const wrapper = mount(
-    <Portal attrName={attrName} attrValue={attrValue}>
-      {contentNode}
-    </Portal>
-  );
+  it("container and children", () => {
+    render(
+      <Portal attrName={attrName} attrValue={attrValue}>
+        {contentNode}
+      </Portal>
+    );
+    const containerEl = document.querySelector(
+      `div[${attrName}="${attrValue}"]`
+    );
 
-  const container: HTMLDivElement | null = document.querySelector<
-    HTMLDivElement
-  >(`div[${attrName}="${attrValue}"]`);
-
-  it("children", () => {
-    expect(wrapper.children().html()).toEqual(
+    expect(containerEl).not.toBeNull();
+    expect(containerEl?.children[0].innerHTML).toEqual(
       renderToStaticMarkup(contentNode)
     );
-  });
 
-  it("container", () => {
-    expect(container).not.toBeNull();
+    expect(screen.getByText("name")).toBeTruthy();
   });
 });

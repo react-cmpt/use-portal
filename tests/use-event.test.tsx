@@ -1,16 +1,16 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { render, screen, queryHelpers } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks";
-import { mount } from "enzyme";
 
 import { useEventPortal } from "../src/use-event-portal";
 import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "../src/constants";
 
-const contentNode: JSX.Element = <span>{"name"}</span>;
+const contentNode = <span>{"name"}</span>;
 
 describe("useEventPortal", () => {
   it("default", () => {
-    const { result } = renderHook(() => useEventPortal({}));
+    const { result, unmount } = renderHook(() => useEventPortal({}));
     const { onShow, onClose } = result.current;
 
     const el = document.body.querySelector(
@@ -22,7 +22,11 @@ describe("useEventPortal", () => {
     expect(result.current.visiable).toEqual(false);
 
     const Portal1 = result.current.Portal;
-    expect(mount(<Portal1>{contentNode}</Portal1>).html()).toBeNull();
+    const { rerender: reactRerender } = render(
+      <Portal1>{contentNode}</Portal1>
+    );
+
+    expect(el?.childElementCount).toEqual(0);
     expect(result.current.getChild().innerHTML).toEqual("");
 
     act(() => {
@@ -32,9 +36,10 @@ describe("useEventPortal", () => {
     expect(result.current.visiable).toEqual(true);
 
     const Portal2 = result.current.Portal;
-    expect(mount(<Portal2>{contentNode}</Portal2>).html()).toEqual(
-      renderToStaticMarkup(contentNode)
-    );
+    reactRerender(<Portal2>{contentNode}</Portal2>);
+
+    expect(el?.childElementCount).toEqual(1);
+    expect(screen.getByText("name")).toBeTruthy();
     expect(result.current.getChild().innerHTML).toEqual(
       renderToStaticMarkup(contentNode)
     );
@@ -46,7 +51,18 @@ describe("useEventPortal", () => {
     expect(result.current.visiable).toEqual(false);
 
     const Portal3 = result.current.Portal;
-    expect(mount(<Portal3>{contentNode}</Portal3>).html()).toBeNull();
+    reactRerender(<Portal3>{contentNode}</Portal3>);
+    expect(el?.childElementCount).toEqual(0);
+
+    act(() => {
+      onShow();
+    });
+
+    expect(el?.childElementCount).toEqual(1);
+
+    unmount();
+
+    expect(el?.childElementCount).toEqual(0);
   });
 
   it("defaultVisiable: true", () => {
@@ -54,10 +70,21 @@ describe("useEventPortal", () => {
       useEventPortal({ defaultVisiable: true })
     );
 
+    const containerEl = queryHelpers.queryByAttribute(
+      CONTAINER_ATTR_NAME,
+      document.body,
+      CONTAINER_ATTR_VALUE
+    );
+
     expect(result.current.visiable).toEqual(true);
 
     const Portal1 = result.current.Portal;
-    expect(mount(<Portal1>{contentNode}</Portal1>).html()).toEqual(
+    const { rerender: reactRerender } = render(
+      <Portal1>{contentNode}</Portal1>
+    );
+    expect(screen.getByText("name")).toBeTruthy();
+    expect(containerEl?.childElementCount).toEqual(1);
+    expect(containerEl?.children[0].innerHTML).toStrictEqual(
       renderToStaticMarkup(contentNode)
     );
 
@@ -68,7 +95,8 @@ describe("useEventPortal", () => {
     expect(result.current.visiable).toEqual(false);
 
     const Portal2 = result.current.Portal;
-    expect(mount(<Portal2>{contentNode}</Portal2>).html()).toBeNull();
+    reactRerender(<Portal2>{contentNode}</Portal2>);
+    expect(containerEl?.childElementCount).toEqual(0);
 
     act(() => {
       result.current.onShow();
@@ -77,7 +105,9 @@ describe("useEventPortal", () => {
     expect(result.current.visiable).toEqual(true);
 
     const Portal3 = result.current.Portal;
-    expect(mount(<Portal3>{contentNode}</Portal3>).html()).toEqual(
+    reactRerender(<Portal3>{contentNode}</Portal3>);
+    expect(containerEl?.childElementCount).toEqual(1);
+    expect(containerEl?.children[0].innerHTML).toStrictEqual(
       renderToStaticMarkup(contentNode)
     );
   });
