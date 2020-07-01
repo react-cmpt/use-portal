@@ -3,9 +3,13 @@ import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
 import { containEl } from "./utils";
 
 export interface PortalReturns {
+  /** obtaining the current container mount child node. */
   getChild: () => HTMLElement;
+  /** obtaining the container element. */
   getContainer: () => HTMLDivElement | null;
+  /** append the child node. @default getChild() current node */
   appendChild: (element?: HTMLElement) => void;
+  /** remove the child node. @default getChild() current node */
   removeChild: (element?: HTMLElement) => void;
 }
 
