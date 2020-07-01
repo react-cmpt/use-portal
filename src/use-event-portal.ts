@@ -4,6 +4,7 @@ import {
   useState,
   useEffect,
   ReactPortal,
+  useRef,
 } from "react";
 import { createPortal } from "react-dom";
 
@@ -33,7 +34,7 @@ export interface EventPortalOptions {
  * @param options
  */
 export const useEventPortal = (
-  options: EventPortalOptions
+  options?: EventPortalOptions
 ): {
   Portal: ({ children }: { children: ReactNode }) => ReactPortal | null;
   visiable: boolean;
@@ -42,28 +43,38 @@ export const useEventPortal = (
   getChild: PortalReturns["getChild"];
   getContainer: PortalReturns["getContainer"];
 } => {
-  const { defaultVisiable = false, attrName, attrValue, portalKey } = options;
-  const { getChild, getContainer, appendChild, removeChild } = usePortal(
+  const { defaultVisiable = false, attrName, attrValue, portalKey } =
+    options || {};
+
+  const mounted = useRef<boolean>();
+  const { getChild, getContainer, appendChild, removeChild } = usePortal({
     attrName,
-    attrValue
-  );
+    attrValue,
+    initialAppend: defaultVisiable,
+  });
   const [visiable, setVisiable] = useState<boolean>(defaultVisiable);
 
   const onShow = useCallback(() => {
-    setVisiable(true);
-  }, []);
+    if (mounted.current) {
+      setVisiable(true);
+      appendChild();
+    }
+  }, [appendChild]);
 
   const onClose = useCallback(() => {
-    setVisiable(false);
-  }, []);
-
-  useEffect(() => {
-    if (visiable) {
-      appendChild();
-    } else {
+    if (mounted.current) {
+      setVisiable(false);
       removeChild();
     }
-  }, [appendChild, removeChild, visiable]);
+  }, [removeChild]);
+
+  useEffect(() => {
+    mounted.current = true;
+
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
   const Portal = useCallback(
     ({ children }: { children: ReactNode }) => {
