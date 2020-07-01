@@ -22,17 +22,18 @@ yarn add @react-cmpt/use-portal
 | `attrName`  | string | "react-cmpt-container" | setAttribute qualifiedName |
 | `attrValue` | string | ""                     | setAttribute value         |
 
-| return    | type        | explain                       |
-| --------- | ----------- | ----------------------------- |
-| `element` | JSX.element | the node that wraps the child |
-| `ref`     | RefObject   | mounted node                  |
+| return         | type     | explain                                                        |
+| -------------- | -------- | -------------------------------------------------------------- |
+| `getChild`     | function | Callback for obtaining the current container mount child node. |
+| `getContainer` | function | Callback for obtaining the container element.                  |
+| `appendChild`  | function | Manually append the child node. (Default current node)         |
+| `removeChild`  | function | Manually remove the child node. (Default current node)         |
 
 ```tsx
 import { usePortal } from "@react-cmpt/use-portal";
 
 const App = () => {
-  // export content element and container ref
-  const { element, ref } = usePortal();
+  const { getChild, getContainer, appendChild, removeChild } = usePortal();
 };
 ```
 
@@ -65,14 +66,14 @@ const App = () => {
 | `attrValue`       | string  | ""                     | setAttribute value         |
 | `portalKey`       | string  | undefined              | createPortal key           |
 
-| return               | type            | explain                       |
-| -------------------- | --------------- | ----------------------------- |
-| `Portal`             | React.ReactNode | portal holder                 |
-| `visiable`           | boolean         | element is visible or not     |
-| `onShow`             | function        | display trigger event         |
-| `onClose`            | function        | hide trigger event            |
-| `element`            | JSX.element     | the node that wraps the child |
-| `containerElmentRef` | RefObject       | mounted node                  |
+| return         | type            | explain                                                        |
+| -------------- | --------------- | -------------------------------------------------------------- |
+| `Portal`       | React.ReactNode | Portal holder                                                  |
+| `visiable`     | boolean         | Whether the element is visible                                 |
+| `onShow`       | function        | Show trigger event                                             |
+| `onClose`      | function        | Hide trigger event                                             |
+| `getChild`     | function        | Callback for obtaining the current container mount child node. |
+| `getContainer` | function        | Callback for obtaining the container element.                  |
 
 ```tsx
 import { useEventPortal } from "@react-cmpt/use-portal";
@@ -83,8 +84,8 @@ const App = () => {
     visiable,
     onShow,
     onClose,
-    element,
-    containerElmentRef,
+    getChild,
+    getContainer,
   } = useEventPortal({});
 
   return (

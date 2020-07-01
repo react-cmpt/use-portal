@@ -28,7 +28,7 @@ export interface EventPortalOptions {
  * show function,
  * close function,
  * mount element
- * and container ref
+ * and getChild getContainer
  *
  * @param options
  */
