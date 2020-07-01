@@ -8,7 +8,6 @@ const attrName: string = "container-test";
 const attrValue: string = "demo";
 
 const divElement = document.createElement("div");
-divElement.innerText = "hello";
 
 describe("usePortal", () => {
   it("default attribute", () => {
@@ -32,7 +31,7 @@ describe("usePortal", () => {
 
   it("custom attribute", () => {
     const { result: customResult, unmount } = renderHook(() =>
-      usePortal(attrName, attrValue)
+      usePortal({ attrName, attrValue })
     );
 
     expect(customResult.current.getChild()).toStrictEqual(divElement);
@@ -47,6 +46,7 @@ describe("usePortal", () => {
   });
 
   it("Manual", () => {
+    document.body.innerHTML = "";
     const el1 = document.createElement("span");
     const el2 = document.createElement("p");
     const { result, unmount, rerender } = renderHook(() => usePortal());
@@ -95,5 +95,31 @@ describe("usePortal", () => {
     expect(
       containEl(result.current.getContainer() as HTMLDivElement, el1)
     ).toBeFalsy();
+  });
+
+  it("Initial append: false", () => {
+    document.body.innerHTML = "";
+    const { result, rerender, unmount } = renderHook(() =>
+      usePortal({ initialAppend: false })
+    );
+
+    const el = document.body.querySelector(
+      `div[${CONTAINER_ATTR_NAME}="${CONTAINER_ATTR_VALUE}"]`
+    );
+
+    expect(el).not.toBeNull();
+    expect(el?.childElementCount).toEqual(0);
+
+    result.current.appendChild();
+    unmount();
+    expect(el?.childElementCount).toEqual(0);
+
+    rerender();
+    expect(el?.childElementCount).toEqual(0);
+
+    result.current.appendChild();
+    expect(el?.childElementCount).toEqual(1);
+    result.current.removeChild();
+    expect(el?.childElementCount).toEqual(0);
   });
 });

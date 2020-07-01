@@ -10,7 +10,7 @@ const attrValue = "portal-container-value";
 
 describe("portal component custom", () => {
   it("container and children", () => {
-    render(
+    const { unmount } = render(
       <Portal attrName={attrName} attrValue={attrValue}>
         {contentNode}
       </Portal>
@@ -25,5 +25,9 @@ describe("portal component custom", () => {
     );
 
     expect(screen.getByText("name")).toBeTruthy();
+
+    unmount();
+
+    expect(containerEl?.childElementCount).toEqual(0);
   });
 });

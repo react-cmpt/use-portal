@@ -62,6 +62,10 @@ describe("useEventPortal", () => {
 
     unmount();
 
+    act(() => {
+      onShow();
+    });
+
     expect(el?.childElementCount).toEqual(0);
   });
 
