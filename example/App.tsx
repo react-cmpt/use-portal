@@ -4,7 +4,7 @@ import { css } from "emotion";
 import PortalDemo from "./portal";
 import EventPortalDemo from "./event-portal";
 
-const Source: FC<{ url: string }> = props => {
+const Source: FC<{ url: string }> = (props) => {
   return (
     <a href={props.url} target={"_blank"}>
       {"source"}
@@ -46,6 +46,8 @@ export default function App() {
 
 const styleApp = css`
   text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
 `;
 
 const styleItem = css`
