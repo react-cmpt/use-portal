@@ -17,10 +17,11 @@ yarn add @react-cmpt/use-portal
 
 ### usePortal
 
-| options     | type   | default                | explain                    |
-| ----------- | ------ | ---------------------- | -------------------------- |
-| `attrName`  | string | "react-cmpt-container" | setAttribute qualifiedName |
-| `attrValue` | string | ""                     | setAttribute value         |
+| options         | type    | default                | explain                                               |
+| --------------- | ------- | ---------------------- | ----------------------------------------------------- |
+| `initialAppend` | boolean | true                   | Whether to append the child node in the mounted state |
+| `attrName`      | string  | "react-cmpt-container" | setAttribute qualifiedName                            |
+| `attrValue`     | string  | ""                     | setAttribute value                                    |
 
 | return         | type     | explain                                                        |
 | -------------- | -------- | -------------------------------------------------------------- |
