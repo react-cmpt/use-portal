@@ -2,6 +2,15 @@ import { useEffect, useRef, useCallback } from "react";
 import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
 import { containEl } from "./utils";
 
+export interface PortalOptions {
+  /** Initial append @default true */
+  initialAppend?: boolean;
+  /** Attribute qualifiedName @default "react-cmpt-container" */
+  attrName?: string;
+  /** Attribute value @default "" */
+  attrValue?: string;
+}
+
 export interface PortalReturns {
   /** obtaining the current container mount child node. */
   getChild: () => HTMLElement;
@@ -16,14 +25,20 @@ export interface PortalReturns {
 /**
  * usePortal
  *
- * @param {string} attrName @default "react-cmpt-container"
- * @param {string} attrValue @default ""
+ * @param options PortalOptions {`initialAppend`, `attrName`, `attrValue`}
  */
-export function usePortal(
-  attrName: string = CONTAINER_ATTR_NAME,
-  attrValue: string = CONTAINER_ATTR_VALUE
-): PortalReturns {
-  const refContainer = useRef<HTMLDivElement | null>(null);
+export function usePortal(options?: PortalOptions): PortalReturns {
+  const {
+    initialAppend = true,
+    attrName = CONTAINER_ATTR_NAME,
+    attrValue = CONTAINER_ATTR_VALUE,
+  } = options || {};
+
+  const isFirstMount = useRef(true);
+
+  const refContainer = useRef<HTMLDivElement | null>(
+    document.querySelector<HTMLDivElement>(`div[${attrName}="${attrValue}"]`)
+  );
   const refElement = useRef<HTMLElement>(document.createElement("div"));
 
   const appendChild = useCallback((el?: HTMLElement) => {
@@ -50,16 +65,6 @@ export function usePortal(
 
   const getContainer = useCallback(() => refContainer.current, []);
 
-  const cleanChildEl = () => {
-    if (
-      refContainer.current &&
-      refElement.current &&
-      containEl(refContainer.current, refElement.current)
-    ) {
-      refContainer.current.removeChild(refElement.current);
-    }
-  };
-
   useEffect(() => {
     refContainer.current = document.querySelector<HTMLDivElement>(
       `div[${attrName}="${attrValue}"]`
@@ -71,12 +76,16 @@ export function usePortal(
       document.body.appendChild(refContainer.current);
     }
 
-    refContainer.current.appendChild(refElement.current);
+    if ((initialAppend && isFirstMount.current) || !isFirstMount.current) {
+      appendChild();
+    }
 
-    return () => {
-      cleanChildEl();
-    };
-  }, [attrName, attrValue]);
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+    }
+
+    return removeChild;
+  }, [removeChild, appendChild, initialAppend, attrName, attrValue]);
 
   return {
     getChild,
