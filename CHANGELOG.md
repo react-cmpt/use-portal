@@ -1,3 +1,18 @@
+# [0.2.0](https://github.com/react-cmpt/use-portal/compare/v0.2.0-alpha...v0.2.0) (2020-07-02)
+
+
+### Bug Fixes
+
+* **use-event-portal:**  abort when unmounted ([446fc88](https://github.com/react-cmpt/use-portal/commit/446fc88b7893c443a3bad821602a7a3582ad16c7))
+
+
+### Features
+
+* **use-portal:** initialAppend props ([49fb4fa](https://github.com/react-cmpt/use-portal/commit/49fb4fa475c161acf1b7f923a59d633ac7e86b5f))
+* **use-portal:** value -> function, appendChild and removeChild ([4cfeaab](https://github.com/react-cmpt/use-portal/commit/4cfeaab03c75f1382bff48a2407734dd94dcdfe4))
+
+
+
 # [0.2.0-alpha](https://github.com/react-cmpt/use-portal/compare/v0.1.0...v0.2.0-alpha) (2020-06-03)
 
 
