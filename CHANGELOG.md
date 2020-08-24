@@ -1,3 +1,11 @@
+## [0.2.1](https://github.com/react-cmpt/use-portal/compare/v0.2.0...v0.2.1) (2020-08-24)
+
+
+### Bug Fixes
+
+* **utils:**  Node.childNodes forEach compatibility ([b5f1663](https://github.com/react-cmpt/use-portal/commit/b5f16635190de414bc389987af07bdec235fa5ef))
+
+
 # [0.2.0](https://github.com/react-cmpt/use-portal/compare/v0.2.0-alpha...v0.2.0) (2020-07-02)
 
 
