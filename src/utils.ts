@@ -9,12 +9,12 @@ export function containEl(
 ): boolean {
   let contain = false;
 
-  if (parentNode?.childNodes && childrenNode) {
-    parentNode.childNodes.forEach((i) => {
-      if (i === childrenNode) {
+  if (parentNode?.childNodes?.length > 0 && childrenNode) {
+    for (let i = 0; i < parentNode.childNodes.length; i++) {
+      if (parentNode.childNodes[i] === childrenNode) {
         contain = true;
       }
-    });
+    }
   }
 
   return contain;
