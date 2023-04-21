@@ -26,6 +26,7 @@
     "react",
     "react-portal",
     "portal",
+    "createPortal",
     "react-component",
     "modal",
     "dialog"
