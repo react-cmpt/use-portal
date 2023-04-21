@@ -1,4 +1,5 @@
 export const canUseDom = !!(
+  typeof window !== "undefined" &&
   window?.document?.createElement &&
   typeof window.document.createElement === "function"
 );
