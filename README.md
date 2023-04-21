@@ -17,11 +17,12 @@ yarn add @react-cmpt/use-portal
 
 ### usePortal
 
-| options         | type    | default                | explain                                               |
-| --------------- | ------- | ---------------------- | ----------------------------------------------------- |
-| `initialAppend` | boolean | true                   | Whether to append the child node in the mounted state |
-| `attrName`      | string  | "react-cmpt-container" | setAttribute qualifiedName                            |
-| `attrValue`     | string  | ""                     | setAttribute value                                    |
+| options            | type     | default                | explain                                               |
+| ------------------ | -------- | ---------------------- | ----------------------------------------------------- |
+| `initialAppend`    | boolean  | true                   | Whether to append the child node in the mounted state |
+| `attrName`         | string   | "react-cmpt-container" | setAttribute qualifiedName                            |
+| `attrValue`        | string   | ""                     | setAttribute value                                    |
+| `getRootContainer` | function | () => document.body    | To set the container                                  |
 
 | return         | type     | explain                                                        |
 | -------------- | -------- | -------------------------------------------------------------- |
@@ -40,11 +41,12 @@ const App = () => {
 
 ### Portal
 
-| props       | type   | default                | explain                    |
-| ----------- | ------ | ---------------------- | -------------------------- |
-| `attrName`  | string | "react-cmpt-container" | setAttribute qualifiedName |
-| `attrValue` | string | ""                     | setAttribute value         |
-| `portalKey` | string | undefined              | createPortal key           |
+| props              | type     | default                | explain                    |
+| ------------------ | -------- | ---------------------- | -------------------------- |
+| `attrName`         | string   | "react-cmpt-container" | setAttribute qualifiedName |
+| `attrValue`        | string   | ""                     | setAttribute value         |
+| `portalKey`        | string   | undefined              | createPortal key           |
+| `getRootContainer` | function | () => document.body    | To set the container       |
 
 ```tsx
 import { Portal } from "@react-cmpt/use-portal";
@@ -60,12 +62,13 @@ const App = () => {
 
 ### useEventPortal
 
-| options           | type    | default                | explain                    |
-| ----------------- | ------- | ---------------------- | -------------------------- |
-| `defaultVisiable` | boolean | false                  | initial visiable value     |
-| `attrName`        | string  | "react-cmpt-container" | setAttribute qualifiedName |
-| `attrValue`       | string  | ""                     | setAttribute value         |
-| `portalKey`       | string  | undefined              | createPortal key           |
+| options            | type     | default                | explain                    |
+| ------------------ | -------- | ---------------------- | -------------------------- |
+| `defaultVisiable`  | boolean  | false                  | initial visiable value     |
+| `attrName`         | string   | "react-cmpt-container" | setAttribute qualifiedName |
+| `attrValue`        | string   | ""                     | setAttribute value         |
+| `portalKey`        | string   | undefined              | createPortal key           |
+| `getRootContainer` | function | () => document.body    | To set the container       |
 
 | return         | type            | explain                                                        |
 | -------------- | --------------- | -------------------------------------------------------------- |

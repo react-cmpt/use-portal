@@ -2,17 +2,13 @@ import type { ReactNode, ReactPortal } from "react";
 import { useCallback, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
-import type { PortalReturns } from "./use-portal";
+import type { PortalReturns, PortalOptions } from "./use-portal";
 import { usePortal } from "./use-portal";
 
-export interface EventPortalOptions {
+export interface EventPortalOptions
+  extends Pick<PortalOptions, "attrName" | "attrValue" | "getRootContainer"> {
   /** initial visiable value */
   defaultVisiable?: boolean;
-
-  /** setAttribute qualifiedName @default "react-cmpt-container" */
-  attrName?: string;
-  /** setAttribute value @default "" */
-  attrValue?: string;
   /** createPortal key */
   portalKey?: string;
 }
@@ -38,14 +34,20 @@ export const useEventPortal = (
   getChild: PortalReturns["getChild"];
   getContainer: PortalReturns["getContainer"];
 } => {
-  const { defaultVisiable = false, attrName, attrValue, portalKey } =
-    options || {};
+  const {
+    defaultVisiable = false,
+    attrName,
+    attrValue,
+    portalKey,
+    getRootContainer,
+  } = options || {};
 
   const mounted = useRef<boolean>();
   const { getChild, getContainer, appendChild, removeChild } = usePortal({
     attrName,
     attrValue,
     initialAppend: defaultVisiable,
+    getRootContainer,
   });
   const [visiable, setVisiable] = useState<boolean>(defaultVisiable);
 

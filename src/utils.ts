@@ -1,3 +1,5 @@
+import { useRef, useEffect } from "react";
+
 export const canUseDom = !!(
   typeof window !== "undefined" &&
   window?.document?.createElement &&
@@ -19,4 +21,15 @@ export function containEl(
   }
 
   return contain;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export function useRefFn<T = (...args: any) => any>(fn: T) {
+  const refFn = useRef(fn);
+
+  useEffect(() => {
+    refFn.current = fn;
+  }, [fn]);
+
+  return refFn;
 }
