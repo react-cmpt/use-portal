@@ -1,14 +1,9 @@
-import {
-  ReactNode,
-  useCallback,
-  useState,
-  useEffect,
-  ReactPortal,
-  useRef,
-} from "react";
+import type { ReactNode, ReactPortal } from "react";
+import { useCallback, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
-import { usePortal, PortalReturns } from "./use-portal";
+import type { PortalReturns } from "./use-portal";
+import { usePortal } from "./use-portal";
 
 export interface EventPortalOptions {
   /** initial visiable value */

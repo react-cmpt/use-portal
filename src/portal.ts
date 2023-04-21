@@ -1,4 +1,5 @@
-import { FC, ReactNode, ReactPortal, useCallback } from "react";
+import type { FC, ReactNode, ReactPortal } from "react";
+import { useCallback } from "react";
 import ReactDom from "react-dom";
 import { canUseDom } from "./utils";
 import { CONTAINER_ATTR_NAME, CONTAINER_ATTR_VALUE } from "./constants";
