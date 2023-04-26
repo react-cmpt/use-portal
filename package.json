@@ -8,8 +8,8 @@
   "sideEffects": false,
   "scripts": {
     "example": "parcel serve ./example/index.html",
-    "example:build": "rm -rf ./dist/example && parcel build ./example/index.html --target example",
-    "example:deploy": "yarn example:build && gh-pages -d ./dist/example",
+    "example:build": "rm -rf ./dist && parcel build ./example/index.html --target example",
+    "example:deploy": "yarn example:build && gh-pages -d ./dist",
     "build": "rm -rf ./lib/* ./esm/* && yarn build:cjs && yarn build:es",
     "build:cjs": "tsc",
     "build:es": "tsc -m ESNext --outDir ./esm",
@@ -86,6 +86,8 @@
     "example": {
       "context": "browser",
       "publicUrl": "./",
+      "outputFormat": "global",
+      "scopeHoist": false,
       "isLibrary": false
     }
   }
