@@ -13,6 +13,16 @@ export interface EventPortalOptions
   portalKey?: string;
 }
 
+export type EventPortalReturns = Pick<
+  PortalReturns,
+  "getChild" | "getContainer"
+> & {
+  Portal: ({ children }: { children: ReactNode }) => ReactPortal | null;
+  visiable: boolean;
+  onShow: () => void;
+  onClose: () => void;
+};
+
 /**
  * Returns
  * simple FunctionComponent,
@@ -26,14 +36,7 @@ export interface EventPortalOptions
  */
 export const useEventPortal = (
   options?: EventPortalOptions
-): {
-  Portal: ({ children }: { children: ReactNode }) => ReactPortal | null;
-  visiable: boolean;
-  onShow: () => void;
-  onClose: () => void;
-  getChild: PortalReturns["getChild"];
-  getContainer: PortalReturns["getContainer"];
-} => {
+): EventPortalReturns => {
   const {
     defaultVisiable = false,
     attrName,
