@@ -16,7 +16,11 @@ const EventPortalDemo = () => {
         </p>
       </div>
       <Portal>
-        <div>{"use event portal"}</div>
+        <div
+          style={{ position: "fixed", background: "#ffd666", top: 0, left: 0 }}
+        >
+          {"use event portal"}
+        </div>
       </Portal>
     </div>
   );

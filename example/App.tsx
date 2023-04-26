@@ -3,6 +3,7 @@ import { css } from "emotion";
 
 import PortalDemo from "./portal";
 import EventPortalDemo from "./event-portal";
+import ContextMenuDemo from "./context-menu";
 
 const Source: FC<{ url: string }> = (props) => {
   return (
@@ -39,6 +40,10 @@ export default function App() {
         <p>{"useEventPortal Demo:"}</p>
         <EventPortalDemo />
         <Source url="https://github.com/react-cmpt/use-portal/blob/master/example/event-portal.tsx" />
+      </div>
+
+      <div className={styleItem}>
+        <ContextMenuDemo />
       </div>
     </div>
   );
