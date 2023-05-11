@@ -10,14 +10,19 @@ import { useEventPortal } from "./use-event-portal";
 export type UseContextMenuOptions = Pick<
   EventPortalOptions,
   "attrName" | "attrValue" | "getRootContainer" | "portalKey"
-> & {
-  disabledBodyListener?: boolean;
-};
+>;
 
 type _NodeProps = {
   children: ReactNode;
   style?: CSSProperties;
   className?: string;
+};
+
+export type WrapperNodeProps = _NodeProps & {
+  /**
+   * ChildNode | [MaskNode, ChildNode]
+   */
+  children: ReactNode | [ReactNode, ReactNode];
 };
 
 export type UseContextMenuReturns = [
@@ -123,19 +128,26 @@ const useContextMenu = (
     [_handleClick, _handleContextMenu, _handleScroll]
   );
 
-  const Wrapper: FC<_NodeProps> = useMemo(
-    () => (props) =>
-      (
+  const Wrapper: FC<WrapperNodeProps> = useMemo(
+    () => (props) => {
+      const _node = props.children;
+      const [maskNode, children] = Array.isArray(_node)
+        ? ([_node[0], _node[1]] as [ReactNode, ReactNode])
+        : [undefined, _node];
+
+      return (
         <Portal>
+          {maskNode}
           <div
             {...props}
             ref={wrapperRef}
             style={{ position: "fixed", visibility: "hidden", ...props.style }}
           >
-            {props.children}
+            {children}
           </div>
         </Portal>
-      ),
+      );
+    },
     [Portal]
   );
 
